@@ -4,7 +4,7 @@
 #include <string>
 
 std::map<wchar_t, char> wchar_t_map = {
-        {L'A', 128},
+        {L'А', 128},
         {L'Б', 129},
         {L'В', 130},
         {L'Г', 131},
@@ -36,7 +36,7 @@ std::map<wchar_t, char> wchar_t_map = {
         {L'Є', 157},
         {L'Ю', 158},
         {L'Я', 159},
-        {L'a', 160},
+        {L'а', 160},
         {L'б', 161},
         {L'в', 162},
         {L'г', 163},
@@ -73,16 +73,15 @@ std::map<wchar_t, char> wchar_t_map = {
 
 char* toMappedBytes(std::wstring s)
 {
-    std::transform(s.begin(), s.end(), s.begin(),
-                   [](wchar_t c) {
-                       if (wchar_t_map.count(c) > 0)
-                           mbtowc(&c, &wchar_t_map.at(c), 1);
-                       return c;
-                   });
-
-    size_t size = (wcslen(s.c_str()) + 1) * sizeof(wchar_t);
-    char* output = new char[size];
-    wcstombs(output, s.c_str(), size);
+    char* output = new char[s.size()];
+    for(int i = 0; i < s.size(); i++) {
+        wchar_t c = s.at(i);
+        if (wchar_t_map.count(c) > 0) {
+            output[i] = wchar_t_map.at(c);
+        } else {
+            output[i] = (char) s.at(i);
+        }
+    }
 
     return output;
 }
