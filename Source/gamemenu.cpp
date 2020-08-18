@@ -4,6 +4,7 @@
  * Implementation of the in-game menu functions.
  */
 #include "all.h"
+#include "utf8.h"
 
 DEVILUTION_BEGIN_NAMESPACE
 
@@ -11,7 +12,7 @@ DEVILUTION_BEGIN_NAMESPACE
 TMenuItem sgSingleMenu[] = {
 	// clang-format off
 	// dwFlags,      pszStr,         fnMenu
-	{ GMENU_ENABLED, "Save Game",    &gamemenu_save_game  },
+	{ GMENU_ENABLED, toMappedBytes(L"ФІВА Save Game"),    &gamemenu_save_game  },
 	{ GMENU_ENABLED, "Options",      &gamemenu_options    },
 	{ GMENU_ENABLED, "New Game",     &gamemenu_new_game   },
 	{ GMENU_ENABLED, "Load Game",    &gamemenu_load_game  },
