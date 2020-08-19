@@ -4,7 +4,7 @@
  * Implementation of the in-game menu functions.
  */
 #include "all.h"
-#include "utf8.h"
+#include "cyrillic_mapper.h"
 
 DEVILUTION_BEGIN_NAMESPACE
 

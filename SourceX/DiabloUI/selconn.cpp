@@ -34,7 +34,7 @@ UiListItem SELCONN_DIALOG_ITEMS[] = {
 UiItem SELCONNECT_DIALOG[] = {
 	MAINMENU_BACKGROUND,
 	MAINMENU_LOGO,
-	UiArtText("Multi Player Game", { PANEL_LEFT + 24, 161, 590, 35 }, UIS_CENTER | UIS_BIG),
+	UiArtText("Мережава гра", { PANEL_LEFT + 24, 161, 590, 35 }, UIS_CENTER | UIS_BIG),
 	UiArtText(selconn_MaxPlayers, { PANEL_LEFT + 35, 218, 205, 21 }),
 	UiArtText("Requirements:", { PANEL_LEFT + 35, 256, 205, 21 }),
 	SELCONNECT_DIALOG_DESCRIPTION,

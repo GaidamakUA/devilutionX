@@ -73,7 +73,7 @@ std::map<wchar_t, char> wchar_t_map = {
 
 char* toMappedBytes(std::wstring s)
 {
-    char* output = new char[s.size()];
+    char* output = new char[s.size() + 1];
     for(int i = 0; i < s.size(); i++) {
         wchar_t c = s.at(i);
         if (wchar_t_map.count(c) > 0) {
@@ -82,6 +82,7 @@ char* toMappedBytes(std::wstring s)
             output[i] = (char) s.at(i);
         }
     }
+    output[s.size()] = 0;
 
     return output;
 }

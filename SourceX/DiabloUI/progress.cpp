@@ -45,6 +45,7 @@ void progress_Load(char *msg)
 		SDL_Color color = { 243, 243, 243, 0 };
 
 		msgSurface = TTF_RenderUTF8_Solid(font, msg, color);
+		// TODO Translate Cancel
 		cancleSurface = TTF_RenderUTF8_Solid(font, "Cancel", color);
 		TTF_SizeUTF8(font, "Cancel", &textWidth, NULL);
 	}

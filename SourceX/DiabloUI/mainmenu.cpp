@@ -1,6 +1,7 @@
 #include "all.h"
 #include "DiabloUI/diabloui.h"
 #include "DiabloUI/selok.h"
+#include "cyrillic_mapper.h"
 
 namespace dvl {
 
@@ -9,11 +10,11 @@ DWORD dwAttractTicks;
 
 int MainMenuResult;
 UiListItem MAINMENU_DIALOG_ITEMS[] = {
-	{ "Single Player", MAINMENU_SINGLE_PLAYER },
-	{ "Multi Player", MAINMENU_MULTIPLAYER },
-	{ "Replay Intro", MAINMENU_REPLAY_INTRO },
-	{ "Show Credits", MAINMENU_SHOW_CREDITS },
-	{ "Exit Diablo", MAINMENU_EXIT_DIABLO }
+	{ toMappedBytes(L"Одинична гра"), MAINMENU_SINGLE_PLAYER },
+	{ toMappedBytes(L"Мережева гра"), MAINMENU_MULTIPLAYER },
+	{ toMappedBytes(L"Повторити Вступ"), MAINMENU_REPLAY_INTRO },
+	{ toMappedBytes(L"Показати Титри"), MAINMENU_SHOW_CREDITS },
+	{ toMappedBytes(L"Вийти з Diablo"), MAINMENU_EXIT_DIABLO }
 };
 UiItem MAINMENU_DIALOG[] = {
 	MAINMENU_BACKGROUND,
@@ -80,6 +81,7 @@ BOOL UiMainMenuDialog(char *name, int *pdwResult, void (*fnSound)(char *file), i
 		mainmenu_Free();
 
 		if (gbSpawned && MainMenuResult == MAINMENU_REPLAY_INTRO) {
+		    // TODO Translate
 			UiSelOkDialog(NULL, "The Diablo introduction cinematic is only available in the full retail version of Diablo. Visit https://www.gog.com/game/diablo to purchase.", true);
 			MainMenuResult = 0;
 		}
