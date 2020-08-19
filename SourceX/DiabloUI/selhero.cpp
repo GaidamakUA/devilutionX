@@ -11,6 +11,7 @@
 #include "DiabloUI/scrollbar.h"
 #include "DiabloUI/selyesno.h"
 #include "DiabloUI/selok.h"
+#include "cyrillic_mapper.h"
 
 namespace dvl {
 
@@ -43,60 +44,60 @@ UiItem SELHERO_DIALOG[] = {
 	MAINMENU_LOGO,
 	UiArtText(title, { PANEL_LEFT + 24, 161, 590, 35 }, UIS_CENTER | UIS_BIG),
 	UiImage(&ArtHero, UI_NUM_CLASSES, { PANEL_LEFT + 30, 211, 180, 76 }),
-	UiArtText("Level:", { PANEL_LEFT + 39, 323, 110, 21 }, UIS_RIGHT),
+	UiArtText(toMappedBytes(L"Рівень:"), { PANEL_LEFT + 39, 323, 110, 21 }, UIS_RIGHT),
 	UiArtText(textStats[0], { PANEL_LEFT + 159, 323, 40, 21 }, UIS_CENTER),
-	UiArtText("Strength:", { PANEL_LEFT + 39, 358, 110, 21 }, UIS_RIGHT),
+	UiArtText(toMappedBytes(L"Сила:"), { PANEL_LEFT + 39, 358, 110, 21 }, UIS_RIGHT),
 	UiArtText(textStats[1], { PANEL_LEFT + 159, 358, 40, 21 }, UIS_CENTER),
-	UiArtText("Magic:", { PANEL_LEFT + 39, 380, 110, 21 }, UIS_RIGHT),
+	UiArtText(toMappedBytes(L"Магія:"), { PANEL_LEFT + 39, 380, 110, 21 }, UIS_RIGHT),
 	UiArtText(textStats[2], { PANEL_LEFT + 159, 380, 40, 21 }, UIS_CENTER),
-	UiArtText("Dexterity:", { PANEL_LEFT + 39, 401, 110, 21 }, UIS_RIGHT),
+	UiArtText(toMappedBytes(L"Спритність:"), { PANEL_LEFT + 39, 401, 110, 21 }, UIS_RIGHT),
 	UiArtText(textStats[3], { PANEL_LEFT + 159, 401, 40, 21 }, UIS_CENTER),
-	UiArtText("Vitality:", { PANEL_LEFT + 39, 422, 110, 21 }, UIS_RIGHT),
+	UiArtText(toMappedBytes(L"Виживання:"), { PANEL_LEFT + 39, 422, 110, 21 }, UIS_RIGHT),
 	UiArtText(textStats[4], { PANEL_LEFT + 159, 422, 40, 21 }, UIS_CENTER),
 };
 UiImage *SELHERO_DIALOG_HERO_IMG = &SELHERO_DIALOG[3].image;
 
 UiListItem SELLIST_DIALOG_ITEMS[kMaxViewportItems];
 UiItem SELLIST_DIALOG[] = {
-	UiArtText("Select Hero", { PANEL_LEFT + 264, 211, 320, 33 }, UIS_CENTER | UIS_BIG),
+	UiArtText(toMappedBytes(L"Оберіть героя"), { PANEL_LEFT + 264, 211, 320, 33 }, UIS_CENTER | UIS_BIG),
 	UiList(SELLIST_DIALOG_ITEMS, PANEL_LEFT + 265, 256, 320, 26, UIS_CENTER | UIS_MED | UIS_GOLD),
 	MakeScrollBar({ PANEL_LEFT + 585, 244, 25, 178 }),
 	UiArtTextButton("OK", &UiFocusNavigationSelect, { PANEL_LEFT + 239, 429, 120, 35 }, UIS_CENTER | UIS_BIG | UIS_GOLD),
-	UiArtTextButton("Delete", &selhero_UiFocusNavigationYesNo, { PANEL_LEFT + 364, 429, 120, 35 }, UIS_CENTER | UIS_BIG | UIS_DISABLED),
-	UiArtTextButton("Cancel", &UiFocusNavigationEsc, { PANEL_LEFT + 489, 429, 120, 35 }, UIS_CENTER | UIS_BIG | UIS_GOLD)
+	UiArtTextButton(toMappedBytes(L"Видалити"), &selhero_UiFocusNavigationYesNo, { PANEL_LEFT + 364, 429, 120, 35 }, UIS_CENTER | UIS_BIG | UIS_DISABLED),
+	UiArtTextButton(toMappedBytes(L"Скасувати"), &UiFocusNavigationEsc, { PANEL_LEFT + 489, 429, 120, 35 }, UIS_CENTER | UIS_BIG | UIS_GOLD)
 };
 UiList *SELLIST_DIALOG_LIST = &SELLIST_DIALOG[1].list;
 UiScrollBar *SELLIST_SCROLLBAR = &SELLIST_DIALOG[2].scrollbar;
 UiArtTextButton *SELLIST_DIALOG_DELETE_BUTTON = &SELLIST_DIALOG[4].art_text_button;
 
 UiListItem SELCLAS_DIALOG_ITEMS[] = {
-	{ "Warrior", UI_WARRIOR },
-	{ "Rogue", UI_ROGUE },
-	{ "Sorcerer", UI_SORCERER }
+	{ toMappedBytes(L"Воїн"), UI_WARRIOR },
+	{ toMappedBytes(L"Злодій"), UI_ROGUE },
+	{ toMappedBytes(L"Маг"), UI_SORCERER }
 };
 UiItem SELCLASS_DIALOG[] = {
-	UiArtText("Choose Class", { PANEL_LEFT + 264, 211, 320, 33 }, UIS_CENTER | UIS_BIG),
+	UiArtText(toMappedBytes(L"Оберіть клас"), { PANEL_LEFT + 264, 211, 320, 33 }, UIS_CENTER | UIS_BIG),
 	UiList(SELCLAS_DIALOG_ITEMS, PANEL_LEFT + 264, 285, 320, 33, UIS_CENTER | UIS_MED | UIS_GOLD),
 	UiArtTextButton("OK", &UiFocusNavigationSelect, { PANEL_LEFT + 279, 429, 140, 35 }, UIS_CENTER | UIS_BIG | UIS_GOLD),
-	UiArtTextButton("Cancel", &UiFocusNavigationEsc, { PANEL_LEFT + 429, 429, 140, 35 }, UIS_CENTER | UIS_BIG | UIS_GOLD)
+	UiArtTextButton(toMappedBytes(L"Скасувати"), &UiFocusNavigationEsc, { PANEL_LEFT + 429, 429, 140, 35 }, UIS_CENTER | UIS_BIG | UIS_GOLD)
 };
 
 UiItem ENTERNAME_DIALOG[] = {
-	UiArtText("Enter Name", { PANEL_LEFT + 264, 211, 320, 33 }, UIS_CENTER | UIS_BIG),
+	UiArtText(toMappedBytes(L"Введіть ім'я"), { PANEL_LEFT + 264, 211, 320, 33 }, UIS_CENTER | UIS_BIG),
 	UiEdit(selhero_heroInfo.name, 15, { PANEL_LEFT + 265, 317, 320, 33 }, UIS_MED | UIS_GOLD),
 	UiArtTextButton("OK", &UiFocusNavigationSelect, { PANEL_LEFT + 279, 429, 140, 35 }, UIS_CENTER | UIS_BIG | UIS_GOLD),
-	UiArtTextButton("Cancel", &UiFocusNavigationEsc, { PANEL_LEFT + 429, 429, 140, 35 }, UIS_CENTER | UIS_BIG | UIS_GOLD)
+	UiArtTextButton(toMappedBytes(L"Скасувати"), &UiFocusNavigationEsc, { PANEL_LEFT + 429, 429, 140, 35 }, UIS_CENTER | UIS_BIG | UIS_GOLD)
 };
 
 UiListItem SELLOAD_DIALOG_ITEMS[] = {
-	{ "Load Game", 0 },
-	{ "New Game", 1 }
+	{ toMappedBytes(L"Завантажити гру"), 0 },
+	{ toMappedBytes(L"Нова гра"), 1 }
 };
 UiItem SELLOAD_DIALOG[] = {
-	UiArtText("Save File Exists", { PANEL_LEFT + 264, 211, 320, 33 }, UIS_CENTER | UIS_BIG),
+	UiArtText(toMappedBytes(L"Файл збереження існує"), { PANEL_LEFT + 264, 211, 320, 33 }, UIS_CENTER | UIS_BIG),
 	UiList(SELLOAD_DIALOG_ITEMS, PANEL_LEFT + 265, 285, 320, 33, UIS_CENTER | UIS_MED | UIS_GOLD),
 	UiArtTextButton("OK", &UiFocusNavigationSelect, { PANEL_LEFT + 279, 427, 140, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD),
-	UiArtTextButton("Cancel", &UiFocusNavigationEsc, { PANEL_LEFT + 429, 427, 140, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD)
+	UiArtTextButton(toMappedBytes(L"Скасувати"), &UiFocusNavigationEsc, { PANEL_LEFT + 429, 427, 140, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD)
 };
 
 } // namespace
@@ -133,7 +134,7 @@ void selhero_UpdateViewportItems()
 		SELLIST_DIALOG_ITEMS[i] = { selhero_heros[index].name, static_cast<int>(index) };
 	}
 	if (num_viewport_heroes < kMaxViewportItems) {
-		SELLIST_DIALOG_ITEMS[num_viewport_heroes] = { "New Hero", static_cast<int>(selhero_SaveCount) };
+		SELLIST_DIALOG_ITEMS[num_viewport_heroes] = { toMappedBytes(L"Новий герой"), static_cast<int>(selhero_SaveCount) };
 		++SELLIST_DIALOG_LIST->length;
 	}
 }
@@ -160,9 +161,9 @@ void selhero_List_Init()
 	UiInitList(0, selhero_SaveCount, selhero_List_Focus, selhero_List_Select, selhero_List_Esc, SELLIST_DIALOG, size(SELLIST_DIALOG), false, selhero_List_DeleteYesNo);
 	UiInitScrollBar(SELLIST_SCROLLBAR, kMaxViewportItems, &listOffset);
 	if (selhero_isMultiPlayer) {
-		strcpy(title, "Multi Player Characters");
+		strcpy(title, toMappedBytes(L"Персонажі мережевої гри"));
 	} else {
-		strcpy(title, "Single Player Characters");
+		strcpy(title, toMappedBytes(L"Персонажі одиночної гри"));
 	}
 }
 
@@ -201,14 +202,14 @@ void selhero_List_Select(int value)
 	if (static_cast<std::size_t>(value) == selhero_SaveCount) {
 		UiInitList(0, 2, selhero_ClassSelector_Focus, selhero_ClassSelector_Select, selhero_ClassSelector_Esc, SELCLASS_DIALOG, size(SELCLASS_DIALOG));
 		memset(&selhero_heroInfo.name, 0, sizeof(selhero_heroInfo.name));
-		strcpy(title, "New Single Player Hero");
+		strcpy(title, toMappedBytes(L"Новий герой одиночної гри"));
 		if (selhero_isMultiPlayer) {
-			strcpy(title, "New Multi Player Hero");
+			strcpy(title, toMappedBytes(L"Новий герой мережевої гри"));
 		}
 		return;
 	} else if (selhero_heroInfo.hassaved) {
 		UiInitList(0, 1, selhero_Load_Focus, selhero_Load_Select, selhero_List_Init, SELLOAD_DIALOG, size(SELLOAD_DIALOG), true);
-		strcpy(title, "Single Player Characters");
+		strcpy(title, toMappedBytes(L"Персонажі одиночної гри"));
 		return;
 	}
 
@@ -242,15 +243,15 @@ void selhero_ClassSelector_Select(int value)
 {
 	if (gbSpawned && (value == 1 || value == 2)) {
 		selhero_Free();
-		UiSelOkDialog(NULL, "The Rogue and Sorcerer are only available in the full retail version of Diablo. Visit https://www.gog.com/game/diablo to purchase.", false);
+		UiSelOkDialog(NULL, toMappedBytes(L"Злодій і маг доступні лише в повній версії Diablo. Відвідайте https://www.gog.com/game/diablo для того щоб придбати."), false);
 		LoadBackgroundArt("ui_art\\selhero.pcx");
 		selhero_List_Select(selhero_SaveCount);
 		return;
 	}
 
-	strcpy(title, "New Single Player Hero");
+	strcpy(title, toMappedBytes(L"Новий герой одиночної гри"));
 	if (selhero_isMultiPlayer) {
-		strcpy(title, "New Multi Player Hero");
+		strcpy(title, toMappedBytes(L"Новий герой мережевої гри"));
 	}
 	memset(selhero_heroInfo.name, '\0', sizeof(selhero_heroInfo.name));
 #ifdef PREFILL_PLAYER_NAME
@@ -274,7 +275,7 @@ void selhero_Name_Select(int value)
 
 	if (!UiValidPlayerName(selhero_heroInfo.name)) {
 		selhero_Free();
-		UiSelOkDialog(title, "Invalid name. A name cannot contain spaces, reserved characters, or reserved words.\n", false);
+		UiSelOkDialog(title, toMappedBytes(L"Неприпустиме ім'я. Ім'я не може містити пропуски, зарезервовані символи, чи зарезервовані слова.\n"), false);
 		LoadBackgroundArt("ui_art\\selhero.pcx");
 	} else {
 		bool overwrite = true;
@@ -282,7 +283,7 @@ void selhero_Name_Select(int value)
 			if (strcasecmp(selhero_heros[i].name, selhero_heroInfo.name) == 0) {
 				selhero_Free();
 				char dialogText[256];
-				sprintf(dialogText, "Character already exists. Do you want to overwrite \"%s\"?", selhero_heroInfo.name);
+				sprintf(dialogText, toMappedBytes(L"Персонаж існує. Бажаєте перезаписати \"%s\"?"), selhero_heroInfo.name);
 				overwrite = UiSelHeroYesNoDialog(title, dialogText);
 				LoadBackgroundArt("ui_art\\selhero.pcx");
 				break;
@@ -295,7 +296,7 @@ void selhero_Name_Select(int value)
 				selhero_endMenu = true;
 				return;
 			} else {
-				UiErrorOkDialog("Unable to create character.", SELHERO_DIALOG, size(SELHERO_DIALOG));
+				UiErrorOkDialog(toMappedBytes(L"Не вдалося створити персонажа."), SELHERO_DIALOG, size(SELHERO_DIALOG));
 			}
 		}
 	}
@@ -377,11 +378,11 @@ BOOL UiSelHeroDialog(
 			char dialogTitle[32];
 			char dialogText[256];
 			if (selhero_isMultiPlayer) {
-				strcpy(dialogTitle, "Delete Multi Player Hero");
+				strcpy(dialogTitle, toMappedBytes(L"Видалити героя мережевої гри"));
 			} else {
-				strcpy(dialogTitle, "Delete Single Player Hero");
+				strcpy(dialogTitle, toMappedBytes(L"Видалити героя одиночної гри"));
 			}
-			sprintf(dialogText, "Are you sure you want to delete the character \"%s\"?", selhero_heroInfo.name);
+			sprintf(dialogText, toMappedBytes(L"Ви впевнені, що хочете видалити персонажа \"%s\"?"), selhero_heroInfo.name);
 
 			if (UiSelHeroYesNoDialog(dialogTitle, dialogText))
 				fnremove(&selhero_heroInfo);
