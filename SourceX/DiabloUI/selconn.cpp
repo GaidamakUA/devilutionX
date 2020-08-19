@@ -3,6 +3,7 @@
 #include "all.h"
 #include "DiabloUI/diabloui.h"
 #include "DiabloUI/text.h"
+#include "cyrillic_mapper.h"
 
 namespace dvl {
 
@@ -34,17 +35,17 @@ UiListItem SELCONN_DIALOG_ITEMS[] = {
 UiItem SELCONNECT_DIALOG[] = {
 	MAINMENU_BACKGROUND,
 	MAINMENU_LOGO,
-	UiArtText("Мережава гра", { PANEL_LEFT + 24, 161, 590, 35 }, UIS_CENTER | UIS_BIG),
+	UiArtText(toMappedBytes(L"Мережева гра"), { PANEL_LEFT + 24, 161, 590, 35 }, UIS_CENTER | UIS_BIG),
 	UiArtText(selconn_MaxPlayers, { PANEL_LEFT + 35, 218, 205, 21 }),
-	UiArtText("Requirements:", { PANEL_LEFT + 35, 256, 205, 21 }),
+	UiArtText(toMappedBytes(L"Вимоги:"), { PANEL_LEFT + 35, 256, 205, 21 }),
 	SELCONNECT_DIALOG_DESCRIPTION,
-	UiArtText("no gateway needed", { PANEL_LEFT + 30, 356, 220, 31 }, UIS_CENTER | UIS_MED),
+	UiArtText(toMappedBytes(L"шлюз непотрібен"), { PANEL_LEFT + 30, 356, 220, 31 }, UIS_CENTER | UIS_MED),
 	UiArtText(selconn_Gateway, { PANEL_LEFT + 35, 393, 205, 21 }, UIS_CENTER),
-	UiArtText("Select Connection", { PANEL_LEFT + 300, 211, 295, 33 }, UIS_CENTER | UIS_BIG),
-	UiArtTextButton("Change Gateway", NULL, { PANEL_LEFT + 16, 427, 250, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD | UIS_HIDDEN),
+	UiArtText(toMappedBytes(L"Виберіть з'єднання"), { PANEL_LEFT + 300, 211, 295, 33 }, UIS_CENTER | UIS_BIG),
+	UiArtTextButton(toMappedBytes(L"Змінити шлюз"), NULL, { PANEL_LEFT + 16, 427, 250, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD | UIS_HIDDEN),
 	UiList(SELCONN_DIALOG_ITEMS, PANEL_LEFT + 305, 256, 285, 26, UIS_CENTER | UIS_VCENTER | UIS_GOLD),
 	UiArtTextButton("OK", &UiFocusNavigationSelect, { PANEL_LEFT + 299, 427, 140, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD),
-	UiArtTextButton("Cancel", &UiFocusNavigationEsc, { PANEL_LEFT + 454, 427, 140, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD)
+	UiArtTextButton(toMappedBytes(L"Скасувати"), &UiFocusNavigationEsc, { PANEL_LEFT + 454, 427, 140, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD)
 };
 
 void selconn_Load()
@@ -70,7 +71,7 @@ void selconn_Focus(int value)
 	switch (value) {
 #ifndef NONET
 	case SELCONN_TCP:
-		strcpy(selconn_Description, "All computers must be connected to a TCP-compatible network.");
+		strcpy(selconn_Description, toMappedBytes(L"Всі комп'ютери повинні бути підєднані до TCP-сумісної мережі."));
 		players = MAX_PLRS;
 		break;
 #ifdef BUGGY
@@ -81,12 +82,12 @@ void selconn_Focus(int value)
 #endif
 #endif
 	case SELCONN_LOOPBACK:
-		strcpy(selconn_Description, "Play by yourself with no network exposure.");
+		strcpy(selconn_Description, toMappedBytes(L"Грати з самим собою без мережевої видимості."));
 		players = 1;
 		break;
 	}
 
-	sprintf(selconn_MaxPlayers, "Players Supported: %d", players);
+	sprintf(selconn_MaxPlayers, toMappedBytes(L"Дозволено гравців: %d"), players);
 	WordWrapArtStr(selconn_Description, SELCONNECT_DIALOG_DESCRIPTION.rect.w);
 }
 

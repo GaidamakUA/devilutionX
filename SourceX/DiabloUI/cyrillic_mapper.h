@@ -5,7 +5,7 @@
 
 namespace dvl {
 
-    std::map<wchar_t, char> wchar_t_map = {
+    static std::map<wchar_t, char> wchar_t_map = {
             {L'А', 128},
             {L'Б', 129},
             {L'В', 130},
@@ -73,7 +73,7 @@ namespace dvl {
             {L'я', 239},
     };
 
-    char *toMappedBytes(std::wstring s) {
+    static char *toMappedBytes(std::wstring s) {
         char *output = new char[s.size() + 1];
         for (int i = 0; i < s.size(); i++) {
             wchar_t c = s.at(i);
