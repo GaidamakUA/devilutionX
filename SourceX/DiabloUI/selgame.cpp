@@ -6,6 +6,7 @@
 #include "DiabloUI/text.h"
 #include "DiabloUI/dialogs.h"
 #include "DiabloUI/selok.h"
+#include "cyrillic_mapper.h"
 
 namespace dvl {
 
@@ -24,7 +25,7 @@ static _SNETPROGRAMDATA *m_client_info;
 extern int provider;
 
 constexpr UiArtTextButton SELGAME_OK = UiArtTextButton("OK", &UiFocusNavigationSelect, { PANEL_LEFT + 299, 427, 140, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD);
-constexpr UiArtTextButton SELGAME_CANCEL = UiArtTextButton("CANCEL", &UiFocusNavigationEsc, { PANEL_LEFT + 449, 427, 140, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD);
+static UiArtTextButton SELGAME_CANCEL = UiArtTextButton(toMappedBytes(L"Скасувати"), &UiFocusNavigationEsc, { PANEL_LEFT + 449, 427, 140, 35 }, UIS_CENTER | UIS_VCENTER | UIS_BIG | UIS_GOLD);
 
 UiArtText SELGAME_DESCRIPTION(selgame_Description, { PANEL_LEFT + 35, 256, 205, 192 });
 
@@ -32,9 +33,9 @@ namespace {
 
 char title[32];
 UiListItem SELDIFF_DIALOG_ITEMS[] = {
-	{ "Normal", DIFF_NORMAL },
-	{ "Nightmare", DIFF_NIGHTMARE },
-	{ "Hell", DIFF_HELL }
+	{ toMappedBytes(L"Нормальна"), DIFF_NORMAL },
+	{ toMappedBytes(L"Жахіття"), DIFF_NIGHTMARE },
+	{ toMappedBytes(L"Пекло"), DIFF_HELL }
 };
 UiItem SELDIFF_DIALOG[] = {
 	MAINMENU_BACKGROUND,
@@ -42,18 +43,18 @@ UiItem SELDIFF_DIALOG[] = {
 	UiArtText(title, { PANEL_LEFT + 24, 161, 590, 35 }, UIS_CENTER | UIS_BIG),
 	UiArtText(selgame_Label, { PANEL_LEFT + 34, 211, 205, 33 }, UIS_CENTER | UIS_BIG), // DIFF
 	SELGAME_DESCRIPTION,
-	UiArtText("Select Difficulty", { PANEL_LEFT + 299, 211, 295, 35 }, UIS_CENTER | UIS_BIG),
+	UiArtText(toMappedBytes(L"Оберіть складність"), { PANEL_LEFT + 299, 211, 295, 35 }, UIS_CENTER | UIS_BIG),
 	UiList(SELDIFF_DIALOG_ITEMS, PANEL_LEFT + 300, 282, 295, 26, UIS_CENTER | UIS_MED | UIS_GOLD),
 	SELGAME_OK,
 	SELGAME_CANCEL,
 };
 
 constexpr UiArtText SELUDPGAME_TITLE = UiArtText(title, { PANEL_LEFT + 24, 161, 590, 35 }, UIS_CENTER | UIS_BIG);
-constexpr UiArtText SELUDPGAME_DESCRIPTION_LABEL = UiArtText("Description:", { PANEL_LEFT + 35, 211, 205, 192 }, UIS_MED);
+static UiArtText SELUDPGAME_DESCRIPTION_LABEL = UiArtText(toMappedBytes(L"Опис:"), { PANEL_LEFT + 35, 211, 205, 192 }, UIS_MED);
 
 UiListItem SELUDPGAME_DIALOG_ITEMS[] = {
-	{ "Create Game", 0 },
-	{ "Join Game", 1 },
+	{ toMappedBytes(L"Створити гру"), 0 },
+	{ toMappedBytes(L"Доєднатись до гри"), 1 },
 };
 UiItem SELUDPGAME_DIALOG[] = {
 	MAINMENU_BACKGROUND,
@@ -61,7 +62,7 @@ UiItem SELUDPGAME_DIALOG[] = {
 	SELUDPGAME_TITLE,
 	SELUDPGAME_DESCRIPTION_LABEL,
 	SELGAME_DESCRIPTION,
-	UiArtText("Select Action", { PANEL_LEFT + 300, 211, 295, 33 }, UIS_CENTER | UIS_BIG),
+	UiArtText(toMappedBytes(L"Обрати дію"), { PANEL_LEFT + 300, 211, 295, 33 }, UIS_CENTER | UIS_BIG),
 	UiList(SELUDPGAME_DIALOG_ITEMS, PANEL_LEFT + 305, 255, 285, 26, UIS_CENTER | UIS_MED | UIS_GOLD),
 	SELGAME_OK,
 	SELGAME_CANCEL,
@@ -73,7 +74,7 @@ UiItem ENTERIP_DIALOG[] = {
 	SELUDPGAME_TITLE,
 	SELUDPGAME_DESCRIPTION_LABEL,
 	SELGAME_DESCRIPTION,
-	UiArtText("Enter address", { PANEL_LEFT + 305, 211, 285, 33 }, UIS_CENTER | UIS_BIG),
+	UiArtText(toMappedBytes(L"Введіть адресу"), { PANEL_LEFT + 305, 211, 285, 33 }, UIS_CENTER | UIS_BIG),
 
 	UiEdit(selgame_Ip, 128, { PANEL_LEFT + 305, 314, 285, 33 }, UIS_MED | UIS_GOLD),
 	SELGAME_OK,
@@ -86,7 +87,7 @@ UiItem ENTERPASSWORD_DIALOG[] = {
 	SELUDPGAME_TITLE,
 	SELUDPGAME_DESCRIPTION_LABEL,
 	SELGAME_DESCRIPTION,
-	UiArtText("Enter Password", { PANEL_LEFT + 305, 211, 285, 33 }, UIS_CENTER | UIS_BIG),
+	UiArtText(toMappedBytes(L"Введіть пароль"), { PANEL_LEFT + 305, 211, 285, 33 }, UIS_CENTER | UIS_BIG),
 	UiEdit(selgame_Password, 15, { PANEL_LEFT + 305, 314, 285, 33 }, UIS_MED | UIS_GOLD),
 	SELGAME_OK,
 	SELGAME_CANCEL,
@@ -111,7 +112,7 @@ void selgame_GameSelection_Init()
 	}
 
 	getIniValue("Phone Book", "Entry1", selgame_Ip, 128);
-	strcpy(title, "Client-Server (TCP)");
+	strcpy(title, toMappedBytes(L"Клієнт-Сервер (TCP)"));
 	UiInitList(0, 1, selgame_GameSelection_Focus, selgame_GameSelection_Select, selgame_GameSelection_Esc, SELUDPGAME_DIALOG, size(SELUDPGAME_DIALOG));
 }
 
@@ -119,10 +120,10 @@ void selgame_GameSelection_Focus(int value)
 {
 	switch (value) {
 	case 0:
-		strcpy(selgame_Description, "Create a new game with a difficulty setting of your choice.");
+		strcpy(selgame_Description, toMappedBytes(L"Створити гру з обраною складністю."));
 		break;
 	case 1:
-		strcpy(selgame_Description, "Enter an IP or a hostname and join a game already in progress at that address.");
+		strcpy(selgame_Description, toMappedBytes(L"Введіть IP чи адресу сервера щоб доєднатись до вже створеної гри."));
 		break;
 	}
 	WordWrapArtStr(selgame_Description, SELGAME_DESCRIPTION.rect.w);
@@ -150,11 +151,11 @@ void selgame_GameSelection_Select(int value)
 
 	switch (value) {
 	case 0:
-		strcpy(title, "Create Game");
+		strcpy(title, toMappedBytes(L"Створити гру"));
 		UiInitList(0, NUM_DIFFICULTIES - 1, selgame_Diff_Focus, selgame_Diff_Select, selgame_Diff_Esc, SELDIFF_DIALOG, size(SELDIFF_DIALOG));
 		break;
 	case 1:
-		strcpy(title, "Join TCP Games");
+		strcpy(title, toMappedBytes(L"Доєднатись до TCP гри"));
 		UiInitList(0, 0, NULL, selgame_Password_Init, selgame_GameSelection_Init, ENTERIP_DIALOG, size(ENTERIP_DIALOG));
 		break;
 	}
@@ -171,16 +172,16 @@ void selgame_Diff_Focus(int value)
 {
 	switch (value) {
 	case DIFF_NORMAL:
-		strcpy(selgame_Label, "Normal");
-		strcpy(selgame_Description, "Normal Difficulty\nThis is where a starting character should begin the quest to defeat Diablo.");
+		strcpy(selgame_Label, toMappedBytes(L"Нормальна"));
+		strcpy(selgame_Description, toMappedBytes(L"Нормальна складність\nЦе те, де новий персонаж має почати свій похід на знищення Дьябло"));
 		break;
 	case DIFF_NIGHTMARE:
-		strcpy(selgame_Label, "Nightmare");
-		strcpy(selgame_Description, "Nightmare Difficulty\nThe denizens of the Labyrinth have been bolstered and will prove to be a greater challenge. This is recommended for experienced characters only.");
+		strcpy(selgame_Label, toMappedBytes(L"Жахіття"));
+		strcpy(selgame_Description, toMappedBytes(L"Жахлива складність\nМешканці лабіринту відїлися і становлять більшу загрозу. Рекомендовано лише для досвідчених персонажів."));
 		break;
 	case DIFF_HELL:
-		strcpy(selgame_Label, "Hell");
-		strcpy(selgame_Description, "Hell Difficulty\nThe most powerful of the underworld's creatures lurk at the gateway into Hell. Only the most experienced characters should venture in this realm.");
+		strcpy(selgame_Label, toMappedBytes(L"Пекло"));
+		strcpy(selgame_Description, toMappedBytes(L"Пекельна складність\nНайсильніші з підземних потвор повзають при воротах в пекло. Лише найдосвідченіші персонажі можуть дозволити собі сюди завітати."));
 		break;
 	}
 	WordWrapArtStr(selgame_Description, SELGAME_DESCRIPTION.rect.w);
@@ -195,9 +196,9 @@ bool IsDifficultyAllowed(int value)
 	selgame_Free();
 
 	if (value == 1)
-		UiSelOkDialog(title, "Your character must reach level 20 before you can enter a multiplayer game of Nightmare difficulty.", false);
+		UiSelOkDialog(title, toMappedBytes(L"Ваш персонаж має досягти 20го рівня для того щоб ви могли увійти в мережеву гру на Жахливій складності."), false);
 	if (value == 2)
-		UiSelOkDialog(title, "Your character must reach level 30 before you can enter a multiplayer game of Hell difficulty.", false);
+		UiSelOkDialog(title, toMappedBytes(L"Ваш персонаж має досягти 30го рівня для того щоб ви могли увійти в мережеву гру на Пекельній складності."), false);
 
 	LoadBackgroundArt("ui_art\\selgame.pcx");
 
@@ -251,7 +252,7 @@ void selgame_Password_Select(int value)
 			selgame_endMenu = true;
 		} else {
 			selgame_Free();
-			UiSelOkDialog("Multi Player Game", SDL_GetError(), false);
+			UiSelOkDialog(toMappedBytes(L"Мережева гра"), SDL_GetError(), false);
 			LoadBackgroundArt("ui_art\\selgame.pcx");
 			selgame_Password_Init(selgame_selectedGame);
 		}
@@ -266,7 +267,7 @@ void selgame_Password_Select(int value)
 		selgame_endMenu = true;
 	} else {
 		selgame_Free();
-		UiSelOkDialog("Multi Player Game", SDL_GetError(), false);
+		UiSelOkDialog(toMappedBytes(L"Мережева гра"), SDL_GetError(), false);
 		LoadBackgroundArt("ui_art\\selgame.pcx");
 		selgame_Password_Init(0);
 	}

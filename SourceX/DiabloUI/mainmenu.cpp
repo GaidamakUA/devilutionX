@@ -10,7 +10,7 @@ DWORD dwAttractTicks;
 
 int MainMenuResult;
 UiListItem MAINMENU_DIALOG_ITEMS[] = {
-	{ toMappedBytes(L"Одинична гра"), MAINMENU_SINGLE_PLAYER },
+	{ toMappedBytes(L"Одиночна гра"), MAINMENU_SINGLE_PLAYER },
 	{ toMappedBytes(L"Мережева гра"), MAINMENU_MULTIPLAYER },
 	{ toMappedBytes(L"Повторити Вступ"), MAINMENU_REPLAY_INTRO },
 	{ toMappedBytes(L"Показати Титри"), MAINMENU_SHOW_CREDITS },
